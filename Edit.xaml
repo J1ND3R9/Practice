@@ -1,0 +1,34 @@
+﻿<Window x:Class="Practice.Edit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practice"
+        mc:Ignorable="d"
+        
+        Title="Редактирование курса" Height="350" Width="500">
+    <Grid>
+        <StackPanel Width="290" HorizontalAlignment="Left" Margin="10,5,0,5">
+            <TextBlock Text="Наименование"/>
+            <TextBox Margin="0,4,0,15" x:Name="ServiceName"/>
+            <TextBlock Text="Описание"/>
+            <TextBox Margin="0,4,0,15" Height="100" TextWrapping="Wrap" x:Name="ServiceDesc"/>
+            <TextBlock Text="Время курса"/>
+            <TextBox Margin="0,4,0,15"  TextWrapping="Wrap" x:Name="ServiceTime" Width="100" HorizontalAlignment="Left" PreviewTextInput="ServiceTime_PreviewTextInput" ToolTip="Введите в конце ч, м, или с для указания единицы времени"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="Стоимость"/>
+                    <TextBox Width="100" PreviewTextInput="Numeric_PreviewTextInput" x:Name="priceInput"/>
+                </StackPanel>
+                <StackPanel Margin="90,0,0,0">
+                    <TextBlock Text="Скидка (%)"/>
+                    <TextBox Width="100" x:Name="discountInput" PreviewTextInput="discountInput_PreviewTextInput"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,25,0,0" Height="25" HorizontalAlignment="Right">
+                <Button Content="Отмена" Width="65" Margin="10,0,0,0" Click="Button_Click"/>
+                <Button Content="Сохранить изменения" Margin="30,0,0,0" Width="140" x:Name="saveChanges" Click="saveChanges_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
