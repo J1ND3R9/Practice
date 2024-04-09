@@ -9,7 +9,6 @@
         Title="Курсовик" Height="500" Width="1000">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Price">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HasDiscount}" Value="True">
                     <Setter Property="TextDecorations" Value="Strikethrough"/>
@@ -17,7 +16,6 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="TextBlock" x:Key="Discount">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HasDiscount}" Value="True">
@@ -28,7 +26,6 @@
         
         <Style TargetType="Button" x:Key="AdminButtons">
             <Setter Property="Visibility" Value="Collapsed"/>
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>
@@ -36,7 +33,6 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="Button" x:Key="logButton">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -45,7 +41,6 @@
         </Style>
 
         <Style TargetType="TextBlock" x:Key="idText">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
@@ -55,7 +50,6 @@
         </Style>
 
         <Style TargetType="Button" x:Key="exButton">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
@@ -73,7 +67,6 @@
         </Style>
 
         <Style TargetType="TextBlock" x:Key="desc">
-            <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="Text" Value="{Binding Description}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HaveDesc}" Value="False">
@@ -82,14 +75,14 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid TextElement.FontFamily="Comic Sans MS">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
             <Image Source="/65f71d5319d48acd34bb1d11_sadhamster.png" Width="50" Height="50" x:Name="status"/>
-            <TextBlock Text="Sad Hamster Program" FontFamily="Comic Sans MS" VerticalAlignment="Center" FontSize="18"/>
+            <TextBlock Text="Sad Hamster Program" VerticalAlignment="Center" FontSize="18"/>
         </StackPanel>
         <Button Content="Вход" HorizontalAlignment="Right" Width="80" Height="30" Margin="10" x:Name="login" Click="login_Click" Style="{DynamicResource logButton}"/>
         <Button Content="Выйти из аккаунта" HorizontalAlignment="Right" Width="120" Height="30" Margin="10" x:Name="exitFromAdmin" Click="exitFromAdmin_Click" Style="{DynamicResource exButton}"/>
@@ -104,13 +97,13 @@
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10,0,0,0">
                 <!--Под лого-->
-                <ComboBox Width="130" Height="22" x:Name="defaultFilterComboBox" FontFamily="Comic Sans MS" SelectionChanged="filter_Selection">
+                <ComboBox Width="130" Height="22" x:Name="defaultFilterComboBox" SelectionChanged="filter_Selection">
                     <ComboBoxItem Content="-"/>
                     <ComboBoxItem Content="По уб. цены"/>
                     <ComboBoxItem Content="По воз. цены"/>
                     <ComboBoxItem Content="По алфавиту"/>
                 </ComboBox>
-                <ComboBox Width="130" Height="22" FontFamily="Comic Sans MS" Margin="15,0,0,0" x:Name="filterDiscount" SelectionChanged="filter_Selection">
+                <ComboBox Width="130" Height="22" Margin="15,0,0,0" x:Name="filterDiscount" SelectionChanged="filter_Selection">
                     <ComboBoxItem Content="-"/>
                     <ComboBoxItem Content="0 - 5%"/>
                     <ComboBoxItem Content="5 - 15%"/>
@@ -118,10 +111,11 @@
                     <ComboBoxItem Content="30 - 70%"/>
                     <ComboBoxItem Content="70 - 100%"/>
                 </ComboBox>
-                <TextBox Width="180" Margin="15,0,0,0" x:Name="findBox" TextChanged="findBox_TextChanged" FontFamily="Comic Sans MS"/>
+                <TextBox Width="180" Margin="15,0,0,0" x:Name="findBox" TextChanged="findBox_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                <Button Width="25" Height="25" Content="+" x:Name="addButton" Click="addButton_Click" Style="{DynamicResource AdminButtons}"/>
+                <Button Width="110" Height="25" Content="Записать клиента" x:Name="addClient" Click="addClient_Click" Style="{DynamicResource AdminButtons}"/>
+                <Button Width="25" Height="25" Content="+" x:Name="addButton" Margin="10,0,0,0" Click="addButton_Click" Style="{DynamicResource AdminButtons}"/>
                 <Button Width="25" Height="25" Content="R" Margin="10,0,0,0" x:Name="refreshButton" Click="refreshButton_Click"/>
             </StackPanel>
             <Grid Grid.Row="1">
@@ -144,16 +138,16 @@
                                                 <TextBlock Text="{Binding ID}" Style="{DynamicResource idText}"/>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{Binding Service_Name}" FontFamily="Comic Sans MS" FontSize="13"/>
+                                                <TextBlock Text="{Binding Service_Name}" FontSize="13"/>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="{Binding Price, StringFormat={}{0:N}}" Margin="0,5,0,5" Style="{DynamicResource Price}"/>
                                                     <TextBlock Text="{Binding PriceDiscount, StringFormat={}{0:N}}" Margin="5,5,0,5" Style="{DynamicResource Discount}"/>
-                                                    <TextBlock Text=" руб." Margin="0,5,0,5" FontFamily="Comic Sans MS"/>
+                                                    <TextBlock Text=" руб." Margin="0,5,0,5"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                                    <TextBlock Text="Время курса: " FontFamily="Comic Sans MS"/>
-                                                    <TextBlock Text="{Binding TimeInMin}" FontFamily="Comic Sans MS"/>
-                                                    <TextBlock Text=" минут" FontFamily="Comic Sans MS"/>
+                                                    <TextBlock Text="Время курса: "/>
+                                                    <TextBlock Text="{Binding TimeInMin}"/>
+                                                    <TextBlock Text=" минут"/>
                                                 </StackPanel>
                                                 <TextBlock Width="320" TextWrapping="Wrap" Style="{DynamicResource desc}"/>
                                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">

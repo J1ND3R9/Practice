@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
         
-        Title="Редактирование курса" Height="350" Width="500">
-    <Grid>
+        Title="Редактирование курса" Height="400" Width="500">
+    <Grid TextElement.FontFamily="Comic Sans MS">
         <StackPanel Width="290" HorizontalAlignment="Left" Margin="10,5,0,5">
             <TextBlock Text="Наименование"/>
             <TextBox Margin="0,4,0,15" x:Name="ServiceName"/>

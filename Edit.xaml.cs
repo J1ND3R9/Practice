@@ -36,6 +36,7 @@ namespace Practice
                 ServiceDesc.Text = service.Description;
                 priceInput.Text = service.Price.ToString();
                 discountInput.Text = service.Discount.ToString();
+                ServiceTime.Text = service.Time.ToString() + "с";
             }
             else
             {

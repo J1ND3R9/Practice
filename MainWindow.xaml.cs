@@ -186,5 +186,10 @@ namespace Practice
             else
                 findBox_TextChanged(null, null);
         }
+
+        private void addClient_Click(object sender, RoutedEventArgs e)
+        {
+            // здесь нужен код.
+        }
     }
 }

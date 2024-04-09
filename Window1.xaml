@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         Title="Логин" Height="300" Width="300">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontFamily="Comic Sans MS">
             <TextBlock Text="Введите пароль" HorizontalAlignment="Center" Margin="10"/>
             <PasswordBox PasswordChar="*" Width="150" x:Name="passwordBox" KeyDown="passwordBox_KeyDown"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" x:Name="attemptsBox"/>
