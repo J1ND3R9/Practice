@@ -19,9 +19,9 @@ namespace Practice
 {
     public partial class Edit : Window
     {
-        private static readonly Regex priceRegex = new Regex(@"[\d,]");
-        private static readonly Regex discountRegex = new Regex(@"\d");
-        private static readonly Regex timeRegex = new Regex(@"[\dчсм]");
+        private static readonly Regex priceRegex = new Regex(@"^[0-9,]");
+        private static readonly Regex discountRegex = new Regex(@"^[0-9]");
+        private static readonly Regex timeRegex = new Regex(@"^[0-9чсм]");
 
         private Services service;
         private ListBox lb;
@@ -115,7 +115,6 @@ namespace Practice
             try
             {
                 string timeText = ServiceTime.Text;
-                //string timeFormat = timeText.Substring(timeText.Length - 1);
                 timeText = timeText.Remove(timeText.Length - 1);
                 time = Convert.ToInt32(timeText);
             }
@@ -204,7 +203,89 @@ namespace Practice
         {
             this.Close();
         }
+        #region LostFocuses
+        private void ServiceName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (ServiceName.Text.Length == 0 || ServiceName.Text.Length > 100)
+            {
+                errorTB((TextBox)sender);
+                return;
+            }
+            correctTB((TextBox)sender);
+        }
 
+        private void ServiceDesc_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (ServiceDesc.Text.Length > 300)
+            {
+                errorTB((TextBox)sender);
+                return;
+            }
+            correctTB((TextBox)sender);
+        }
 
+        private void ServiceTime_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int time;
+            try
+            {
+                string timeText = ServiceTime.Text;
+                timeText = timeText.Remove(timeText.Length - 1);
+                time = Convert.ToInt32(timeText);
+                correctTB((TextBox)sender);
+            }
+            catch
+            {
+                errorTB((TextBox)sender);
+                return;
+            }
+        }
+
+        private void priceInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            decimal price;
+            try
+            {
+                price = Convert.ToDecimal(priceInput.Text);
+                correctTB((TextBox)sender);
+            }
+            catch
+            {
+                errorTB((TextBox)sender);
+                return;
+            }
+        }
+
+        private void discountInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            byte discount;
+            try
+            {
+                discount = Convert.ToByte(discountInput.Text);
+                correctTB((TextBox)sender);
+            }
+            catch
+            {
+                errorTB((TextBox)sender);
+                return;
+            }
+            if (discount < 0 || discount >= 100)
+            {
+                errorTB((TextBox)sender);
+                return;
+            }
+
+        }
+
+        private void correctTB(TextBox tb) => tb.Background = new SolidColorBrush(Color.FromRgb(229, 255, 204));
+        private void errorTB(TextBox tb) => tb.Background = new SolidColorBrush(Color.FromRgb(255, 204, 204));
+
+        #endregion
+
+        private void SpaceNotAllowed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
     }
 }

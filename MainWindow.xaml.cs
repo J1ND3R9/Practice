@@ -189,7 +189,8 @@ namespace Practice
 
         private void addClient_Click(object sender, RoutedEventArgs e)
         {
-            // здесь нужен код.
+            ClientAdd windowClient = new ClientAdd();
+            windowClient.ShowDialog();
         }
     }
 }

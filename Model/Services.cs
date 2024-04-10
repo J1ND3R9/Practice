@@ -26,17 +26,16 @@ namespace Practice.Model
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
-        public byte? Discount { get; set; }
-
-        public bool HasDiscount => Discount > 0;
-
         public decimal? PriceDiscount => Price - (Price * Discount / 100);
 
-        public bool HaveDesc => !String.IsNullOrEmpty(Description);
+        public byte? Discount { get; set; }
+        public bool HasDiscount => Discount > 0;
 
         public int Time { get; set; }
 
         public int TimeInMin => Time / 60;
+
+        public bool HaveDesc => Description.Length > 0;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Clients> Clients { get; set; }

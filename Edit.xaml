@@ -10,19 +10,19 @@
     <Grid TextElement.FontFamily="Comic Sans MS">
         <StackPanel Width="290" HorizontalAlignment="Left" Margin="10,5,0,5">
             <TextBlock Text="Наименование"/>
-            <TextBox Margin="0,4,0,15" x:Name="ServiceName"/>
+            <TextBox Margin="0,4,0,15" x:Name="ServiceName" LostFocus="ServiceName_LostFocus"/>
             <TextBlock Text="Описание"/>
-            <TextBox Margin="0,4,0,15" Height="100" TextWrapping="Wrap" x:Name="ServiceDesc"/>
+            <TextBox Margin="0,4,0,15" Height="100" TextWrapping="Wrap" x:Name="ServiceDesc" LostFocus="ServiceDesc_LostFocus"/>
             <TextBlock Text="Время курса"/>
-            <TextBox Margin="0,4,0,15"  TextWrapping="Wrap" x:Name="ServiceTime" Width="100" HorizontalAlignment="Left" PreviewTextInput="ServiceTime_PreviewTextInput" ToolTip="Введите в конце ч, м, или с для указания единицы времени"/>
+            <TextBox Margin="0,4,0,15"  TextWrapping="Wrap" x:Name="ServiceTime" Width="100" HorizontalAlignment="Left" PreviewKeyDown="SpaceNotAllowed" PreviewTextInput="ServiceTime_PreviewTextInput" ToolTip="Введите в конце ч, м, или с для указания единицы времени" LostFocus="ServiceTime_LostFocus"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Стоимость"/>
-                    <TextBox Width="100" PreviewTextInput="Numeric_PreviewTextInput" x:Name="priceInput"/>
+                    <TextBox Width="100" PreviewTextInput="Numeric_PreviewTextInput" x:Name="priceInput" PreviewKeyDown="SpaceNotAllowed" LostFocus="priceInput_LostFocus"/>
                 </StackPanel>
                 <StackPanel Margin="90,0,0,0">
                     <TextBlock Text="Скидка (%)"/>
-                    <TextBox Width="100" x:Name="discountInput" PreviewTextInput="discountInput_PreviewTextInput"/>
+                    <TextBox Width="100" x:Name="discountInput" PreviewTextInput="discountInput_PreviewTextInput" PreviewKeyDown="SpaceNotAllowed" LostFocus="discountInput_LostFocus"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,25,0,0" Height="25" HorizontalAlignment="Right">

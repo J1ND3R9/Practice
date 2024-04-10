@@ -11,8 +11,20 @@ namespace Practice.Model
         public long ID { get; set; }
 
         [Required]
-        [StringLength(500)]
-        public string Full_Name { get; set; }
+        [StringLength(200)]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Patronymic { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string Phone { get; set; }
 
         public long? Course { get; set; }
 
