@@ -34,9 +34,7 @@ namespace Practice
             login.ShowDialog();
             login.Focus();
         }
-
         private void exitFromAdmin_Click(object sender, RoutedEventArgs e) => status.Tag = "False";
-
         private void filter_Selection(object sender, SelectionChangedEventArgs e)
         {
             if (defaultFilterComboBox.SelectedIndex == 0 || defaultFilterComboBox.SelectedIndex == -1)
@@ -44,7 +42,6 @@ namespace Practice
             else
                 defaultFilter();
         }
-
         private void discountFilterFunc()
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
@@ -53,7 +50,6 @@ namespace Practice
             else
                 services.ItemsSource = model.Services.Where(s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Service_Name.Contains(findBox.Text))).ToList();
         }
-
         private void defaultFilter()
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
@@ -66,10 +62,10 @@ namespace Practice
                     services.ItemsSource = model.Services.Where(whereFunc).ToList();
                     return;
                 case 1:
-                    services.ItemsSource = model.Services.Where(whereFunc).OrderBy(order).ToList();
+                    services.ItemsSource = model.Services.Where(whereFunc).OrderByDescending(order).ToList();
                     return;
                 case 2:
-                    services.ItemsSource = model.Services.Where(whereFunc).OrderByDescending(order).ToList();
+                    services.ItemsSource = model.Services.Where(whereFunc).OrderBy(order).ToList();
                     return;
                 case 3:
                     services.ItemsSource = model.Services.Where(whereFunc).OrderBy(s => s.Service_Name).ToList();
@@ -77,7 +73,6 @@ namespace Practice
             }
 
         }
-
         private Func<Services, bool> getWhereFunc()
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
@@ -106,7 +101,6 @@ namespace Practice
             }
             return Tuple.Create(0, 100);
         }
-
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -139,18 +133,16 @@ namespace Practice
                     return;
             }
         }
-
         private bool haveFilters() => (filterDiscount.SelectedIndex != 0 || filterDiscount.SelectedIndex != -1) && (defaultFilterComboBox.SelectedIndex != 0 || defaultFilterComboBox.SelectedIndex != -1);
         private void findBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!haveFilters())
+            if (haveFilters())
             {
                 filter_Selection(null, null);
                 return;
             }
             services.ItemsSource = model.Services.Where(s => s.Service_Name.Contains(findBox.Text)).ToList();
         }
-
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -169,13 +161,11 @@ namespace Practice
             Edit edit = new Edit(services, service);
             edit.ShowDialog();
         }
-
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             Edit edit = new Edit(services);
             edit.ShowDialog();
         }
-
         private void refreshButton_Click(object sender, RoutedEventArgs e)
         {
             services.ItemsSource = null;
@@ -186,11 +176,16 @@ namespace Practice
             else
                 findBox_TextChanged(null, null);
         }
-
         private void addClient_Click(object sender, RoutedEventArgs e)
         {
             ClientAdd windowClient = new ClientAdd();
             windowClient.ShowDialog();
+        }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F5)
+                refreshButton_Click(null, null);
         }
     }
 }

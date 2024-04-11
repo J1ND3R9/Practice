@@ -75,7 +75,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid TextElement.FontFamily="Comic Sans MS">
+    <Grid TextElement.FontFamily="Comic Sans MS" KeyDown="Grid_KeyDown">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="6*"/>

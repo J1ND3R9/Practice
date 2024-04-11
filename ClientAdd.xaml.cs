@@ -67,6 +67,7 @@ namespace Practice
                 model.Clients.Add(cl);
                 model.SaveChanges();
                 MessageBox.Show("Клиент успешно записан!", "Запись создана", MessageBoxButton.OK);
+                this.Close();
             }
             catch (Exception ex)
             {
