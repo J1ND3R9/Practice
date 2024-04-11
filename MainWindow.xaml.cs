@@ -48,13 +48,13 @@ namespace Practice
             if (String.IsNullOrEmpty(findBox.Text))
                 services.ItemsSource = model.Services.Where(s => s.Discount >= discount.Item1 && s.Discount < discount.Item2).ToList();
             else
-                services.ItemsSource = model.Services.Where(s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Service_Name.Contains(findBox.Text))).ToList();
+                services.ItemsSource = model.Services.Where(s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Name_s.Contains(findBox.Text))).ToList();
         }
         private void defaultFilter()
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
-            Func<Services, bool> whereFunc = getWhereFunc();
-            Func<Services, decimal?> order = s => s.Price - (s.Price * s.Discount / 100);
+            Func<Service, bool> whereFunc = getWhereFunc();
+            Func<Service, decimal?> order = s => s.Price - (s.Price * s.Discount / 100);
 
             switch (defaultFilterComboBox.SelectedIndex)
             {
@@ -68,19 +68,19 @@ namespace Practice
                     services.ItemsSource = model.Services.Where(whereFunc).OrderBy(order).ToList();
                     return;
                 case 3:
-                    services.ItemsSource = model.Services.Where(whereFunc).OrderBy(s => s.Service_Name).ToList();
+                    services.ItemsSource = model.Services.Where(whereFunc).OrderBy(s => s.Name_s).ToList();
                     return;
             }
 
         }
-        private Func<Services, bool> getWhereFunc()
+        private Func<Service, bool> getWhereFunc()
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
 
             if (String.IsNullOrEmpty(findBox.Text))
                 return s => s.Discount >= discount.Item1 && s.Discount < discount.Item2;
 
-            return s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Service_Name.Contains(findBox.Text));
+            return s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Name_s.Contains(findBox.Text));
         }
         private Tuple<int, int> getTuple(int i)
         {
@@ -105,7 +105,7 @@ namespace Practice
         {
             Button button = (Button)sender;
             long tag = Convert.ToInt64(button.Tag);
-            Services service;
+            Service service;
             try
             {
                 service = model.Services.First(s => s.ID == tag);
@@ -116,13 +116,13 @@ namespace Practice
                 services.ItemsSource = model.Services.ToList();
                 return;
             }
-            List<Clients> client = model.Clients.Where(c => c.Course == service.ID).ToList();
-            if (client.Count > 0)
+            List<ClientService> clientS = model.ClientServices.Where(c => c.ServiceID == service.ID).ToList();
+            if (clientS.Count > 0)
             {
                 MessageBox.Show("К данному курсу уже записан(ы) клиент(ы)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBoxResult result = MessageBox.Show($"Вы уверены что хотите удалить курс под названием \"{service.Service_Name}\"?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show($"Вы уверены что хотите удалить курс под названием \"{service.Name_s}\"?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
             switch (result)
             {
                 case MessageBoxResult.Yes:
@@ -141,13 +141,13 @@ namespace Practice
                 filter_Selection(null, null);
                 return;
             }
-            services.ItemsSource = model.Services.Where(s => s.Service_Name.Contains(findBox.Text)).ToList();
+            services.ItemsSource = model.Services.Where(s => s.Name_s.Contains(findBox.Text)).ToList();
         }
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             long id = Convert.ToInt64(button.Tag);
-            Services service;
+            Service service;
             try
             {
                 service = model.Services.First(s => s.ID == id);
@@ -178,8 +178,8 @@ namespace Practice
         }
         private void addClient_Click(object sender, RoutedEventArgs e)
         {
-            ClientAdd windowClient = new ClientAdd();
-            windowClient.ShowDialog();
+            //ClientAdd windowClient = new ClientAdd();
+            //windowClient.ShowDialog();
         }
 
         private void Grid_KeyDown(object sender, KeyEventArgs e)

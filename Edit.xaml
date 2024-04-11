@@ -27,8 +27,13 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,25,0,0" Height="25" HorizontalAlignment="Right">
                 <Button Content="Отмена" Width="65" Margin="10,0,0,0" Click="Button_Click"/>
-                <Button Content="Сохранить изменения" Margin="30,0,0,0" Width="140" x:Name="saveChanges" Click="saveChanges_Click"/>
+                <Button Margin="30,0,0,0" Width="140" x:Name="saveChanges" Click="saveChanges_Click"/>
             </StackPanel>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center">
+            <TextBlock Text="Изображение" TextWrapping="Wrap" HorizontalAlignment="Center" x:Name="imagePathText"/>
+            <Image x:Name="changeImage" Stretch="Fill"/>
+            <Button Content="Обзор" Width="50" HorizontalAlignment="Right" x:Name="openFile" Click="openFile_Click"/>
         </StackPanel>
     </Grid>
 </Window>

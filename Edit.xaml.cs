@@ -1,4 +1,6 @@
-﻿using Practice.Model;
+﻿using Microsoft.Win32;
+
+using Practice.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -23,23 +25,25 @@ namespace Practice
         private static readonly Regex discountRegex = new Regex(@"^[0-9]");
         private static readonly Regex timeRegex = new Regex(@"^[0-9чсм]");
 
-        private Services service;
+        private Service service;
         private ListBox lb;
-        public Edit(ListBox lb, Services service = null)
+        public Edit(ListBox lb, Service service = null)
         {
             InitializeComponent();
             this.service = service;
             this.lb = lb;
             if (service != null)
             {
-                ServiceName.Text = service.Service_Name;
-                ServiceDesc.Text = service.Description;
+                ServiceName.Text = service.Name_s;
+                ServiceDesc.Text = service.Descript;
                 priceInput.Text = service.Price.ToString();
                 discountInput.Text = service.Discount.ToString();
-                ServiceTime.Text = service.Time.ToString() + "с";
+                ServiceTime.Text = service.Duration_in_sec.ToString() + "с";
+                saveChanges.Content = "Сохранить изменения";
             }
             else
             {
+                saveChanges.Content = "Добавить курс";
                 this.Title = "Добавление курса";
                 ServiceName.Focus();
             }
@@ -146,13 +150,19 @@ namespace Practice
             Model1 model = new Model1();
 
             if (service == null)
-                service = new Services();
+                service = new Service();
 
-            service.Service_Name = ServiceName.Text;
-            service.Description = ServiceDesc.Text;
+            service.Name_s = ServiceName.Text;
+            service.Descript = ServiceDesc.Text;
             service.Price = Convert.ToDecimal(priceInput.Text);
             service.Discount = Convert.ToByte(discountInput.Text);
-            service.Time = getTime();
+            service.Duration_in_sec = getTime();
+            Service service1 = model.Services.First(s => s.Name_s == service.Name_s);
+            if (service1 != null)
+            {
+                messageErrorByID(-1);
+                return;
+            }
             model.Services.AddOrUpdate(service);
             model.SaveChanges();
             lb.ItemsSource = model.Services.ToList();
@@ -163,6 +173,10 @@ namespace Practice
             string descError = "";
             switch (ID)
             {
+                case -1:
+                    descError = "Курс с таким наименованием уже существует";
+                    ServiceName.Focus();
+                    break;
                 case 0:
                     descError = "Ошибка преобразования времени курса, проверьте введённые данные";
                     ServiceTime.Focus();
@@ -286,6 +300,19 @@ namespace Practice
         {
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        private void openFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Файлы изображения (*.png, *.jpg, *.jpeg)|*.png;*.jpg;*.jpeg";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imagePathText.Text = openFileDialog.SafeFileName;
+                changeImage.Source = BitmapFrame.Create(new Uri(openFileDialog.FileName));
+            }
+                
+
         }
     }
 }

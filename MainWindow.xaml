@@ -67,7 +67,7 @@
         </Style>
 
         <Style TargetType="TextBlock" x:Key="desc">
-            <Setter Property="Text" Value="{Binding Description}"/>
+            <Setter Property="Text" Value="{Binding Descript}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HaveDesc}" Value="False">
                     <Setter Property="Text" Value="Нет описания"/>
@@ -92,7 +92,7 @@
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2.5*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10,0,0,0">
@@ -124,13 +124,13 @@
                         <ListBox x:Name="services">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid MinHeight="125" Width="559" Style="{DynamicResource colorChangeDiscount}">
+                                    <Grid MinHeight="140" Width="671" Style="{DynamicResource colorChangeDiscount}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition Width="4*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0" HorizontalAlignment="Center">
-                                            <Image Width="70" Height="70" Source="/65f71d5319d48acd34bb1d11_sadhamster.png"/>
+                                            <Image Width="70" Height="70" Source="{Binding Image_path}"/>
                                         </Grid>
                                         <Grid Grid.Column="1" HorizontalAlignment="Left">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -138,7 +138,7 @@
                                                 <TextBlock Text="{Binding ID}" Style="{DynamicResource idText}"/>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{Binding Service_Name}" FontSize="13"/>
+                                                <TextBlock Text="{Binding Name_s}" FontSize="13" Width="670" TextWrapping="Wrap" HorizontalAlignment="Left"/>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="{Binding Price, StringFormat={}{0:N}}" Margin="0,5,0,5" Style="{DynamicResource Price}"/>
                                                     <TextBlock Text="{Binding PriceDiscount, StringFormat={}{0:N}}" Margin="5,5,0,5" Style="{DynamicResource Discount}"/>
@@ -149,8 +149,8 @@
                                                     <TextBlock Text="{Binding TimeInMin}"/>
                                                     <TextBlock Text=" минут"/>
                                                 </StackPanel>
-                                                <TextBlock Width="320" TextWrapping="Wrap" Style="{DynamicResource desc}"/>
-                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                                <TextBlock Width="320" TextWrapping="Wrap" Style="{DynamicResource desc}" HorizontalAlignment="Left"/>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
                                                     <Button Content="Изменить" Width="70" Margin="0,0,10,0" Style="{DynamicResource AdminButtons}" Tag="{Binding ID}" x:Name="editButton" Click="editButton_Click"/>
                                                     <Button Content="Удалить" Width="70" Style="{DynamicResource AdminButtons}" Tag="{Binding ID}" x:Name="deleteButton" Click="deleteButton_Click"/>
                                                 </StackPanel>
