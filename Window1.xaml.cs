@@ -54,7 +54,7 @@ namespace Practice
                     TimeSpan time = TimeSpan.FromSeconds(sec);
                     timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
                     {
-                        attemptsBox.Text = $"Вход разблокируется через {time.ToString()}";
+                        attemptsBox.Text = $"Вход разблокируется через {time}";
                         if (time == TimeSpan.Zero)
                         {
                             timer.Stop();

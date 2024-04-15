@@ -24,7 +24,7 @@ namespace Practice
         public MainWindow()
         {
             InitializeComponent();
-            services.ItemsSource = model.Services.ToList();
+            //services.ItemsSource = model.Services.ToList();
             status.Tag = adminStatus;
         }
 
@@ -178,8 +178,8 @@ namespace Practice
         }
         private void addClient_Click(object sender, RoutedEventArgs e)
         {
-            //ClientAdd windowClient = new ClientAdd();
-            //windowClient.ShowDialog();
+            ClientAdd windowClient = new ClientAdd();
+            windowClient.ShowDialog();
         }
 
         private void Grid_KeyDown(object sender, KeyEventArgs e)

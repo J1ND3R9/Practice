@@ -39,14 +39,20 @@ namespace Practice
                 priceInput.Text = service.Price.ToString();
                 discountInput.Text = service.Discount.ToString();
                 ServiceTime.Text = service.Duration_in_sec.ToString() + "с";
-                saveChanges.Content = "Сохранить изменения";
+                imagePathText.Text = service.Image_path;
+
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri(service.Image_path);
+                image.EndInit();
+
+                changeImage.Source = image;
+                return;
             }
-            else
-            {
-                saveChanges.Content = "Добавить курс";
-                this.Title = "Добавление курса";
-                ServiceName.Focus();
-            }
+
+            saveChanges.Content = "Добавить курс";
+            this.Title = "Добавление курса";
+            ServiceName.Focus();
         }
 
         private void Numeric_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -157,6 +163,7 @@ namespace Practice
             service.Price = Convert.ToDecimal(priceInput.Text);
             service.Discount = Convert.ToByte(discountInput.Text);
             service.Duration_in_sec = getTime();
+            service.Image_path = imagePathText.Text;
             Service service1 = model.Services.First(s => s.Name_s == service.Name_s);
             if (service1 != null)
             {
@@ -213,10 +220,8 @@ namespace Practice
             MessageBox.Show(descError, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
+
         #region LostFocuses
         private void ServiceName_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -311,8 +316,6 @@ namespace Practice
                 imagePathText.Text = openFileDialog.SafeFileName;
                 changeImage.Source = BitmapFrame.Create(new Uri(openFileDialog.FileName));
             }
-                
-
         }
     }
 }

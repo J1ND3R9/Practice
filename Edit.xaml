@@ -30,9 +30,11 @@
                 <Button Margin="30,0,0,0" Width="140" x:Name="saveChanges" Click="saveChanges_Click"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center">
-            <TextBlock Text="Изображение" TextWrapping="Wrap" HorizontalAlignment="Center" x:Name="imagePathText"/>
-            <Image x:Name="changeImage" Stretch="Fill"/>
+        <StackPanel HorizontalAlignment="Right" Margin="0,0,5,30" VerticalAlignment="Center">
+            <TextBlock Text="Изображение" TextWrapping="Wrap" HorizontalAlignment="Center" x:Name="imagePathText" Width="172" />
+            <Border Width="170" HorizontalAlignment="Right">
+                <Image x:Name="changeImage" Stretch="Fill"/>
+            </Border>
             <Button Content="Обзор" Width="50" HorizontalAlignment="Right" x:Name="openFile" Click="openFile_Click"/>
         </StackPanel>
     </Grid>
