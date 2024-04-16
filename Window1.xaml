@@ -7,12 +7,35 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         Title="Логин" Height="300" Width="300">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="buttonStyleMain">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+                Background="#04a0ff">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.FontFamily="Comic Sans MS">
             <TextBlock Text="Введите пароль" HorizontalAlignment="Center" Margin="10"/>
             <PasswordBox PasswordChar="*" Width="150" x:Name="passwordBox" KeyDown="passwordBox_KeyDown"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" x:Name="attemptsBox"/>
-            <Button Content="Вход" Width="100" Margin="10" x:Name="checkPassword" Click="checkPassword_Click"/>
+            <Button Content="Вход" Width="100" Margin="10" x:Name="checkPassword" Click="checkPassword_Click" Style="{StaticResource buttonStyleMain}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -127,6 +127,12 @@ namespace Practice
                 messageErrorByID(0);
                 return;
             }
+
+            if (getTime() > 14400)
+            {
+                messageErrorByID(7);
+                return;
+            }
             editCourse();
         }
 
@@ -209,6 +215,10 @@ namespace Practice
                 case 6:
                     descError = "Скидка не должна быть меньше 0% или больше 99%";
                     discountInput.Focus();
+                    break;
+                case 7:
+                    descError = "Курс не может быть длиться более 4 часов";
+                    ServiceTime.Focus();
                     break;
             }
             MessageBox.Show(descError, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="ClientAdd" Height="400" Width="310">
+        ResizeMode="NoResize"
+        Title="Запись клиента" Height="400" Width="310">
     <Window.Resources>
         <Style TargetType="Button" x:Key="buttonStyleMain">
             <Setter Property="Foreground" Value="White"/>
