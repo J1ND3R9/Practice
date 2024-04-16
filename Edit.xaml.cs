@@ -40,13 +40,7 @@ namespace Practice
                 discountInput.Text = service.Discount.ToString();
                 ServiceTime.Text = service.Duration_in_sec.ToString() + "с";
                 imagePathText.Text = service.Image_path;
-
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = new Uri(service.Image_path);
-                image.EndInit();
-
-                changeImage.Source = image;
+                saveChanges.Content = "Сохранить изменения";
                 return;
             }
 
@@ -164,8 +158,8 @@ namespace Practice
             service.Discount = Convert.ToByte(discountInput.Text);
             service.Duration_in_sec = getTime();
             service.Image_path = imagePathText.Text;
-            Service service1 = model.Services.First(s => s.Name_s == service.Name_s);
-            if (service1 != null)
+            var containsServiceName = model.Services.Where(s => s.Name_s == service.Name_s).ToList();
+            if (containsServiceName.Any())
             {
                 messageErrorByID(-1);
                 return;
@@ -221,85 +215,6 @@ namespace Practice
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) => this.Close();
-
-        #region LostFocuses
-        private void ServiceName_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ServiceName.Text.Length == 0 || ServiceName.Text.Length > 100)
-            {
-                errorTB((TextBox)sender);
-                return;
-            }
-            correctTB((TextBox)sender);
-        }
-
-        private void ServiceDesc_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (ServiceDesc.Text.Length > 300)
-            {
-                errorTB((TextBox)sender);
-                return;
-            }
-            correctTB((TextBox)sender);
-        }
-
-        private void ServiceTime_LostFocus(object sender, RoutedEventArgs e)
-        {
-            int time;
-            try
-            {
-                string timeText = ServiceTime.Text;
-                timeText = timeText.Remove(timeText.Length - 1);
-                time = Convert.ToInt32(timeText);
-                correctTB((TextBox)sender);
-            }
-            catch
-            {
-                errorTB((TextBox)sender);
-                return;
-            }
-        }
-
-        private void priceInput_LostFocus(object sender, RoutedEventArgs e)
-        {
-            decimal price;
-            try
-            {
-                price = Convert.ToDecimal(priceInput.Text);
-                correctTB((TextBox)sender);
-            }
-            catch
-            {
-                errorTB((TextBox)sender);
-                return;
-            }
-        }
-
-        private void discountInput_LostFocus(object sender, RoutedEventArgs e)
-        {
-            byte discount;
-            try
-            {
-                discount = Convert.ToByte(discountInput.Text);
-                correctTB((TextBox)sender);
-            }
-            catch
-            {
-                errorTB((TextBox)sender);
-                return;
-            }
-            if (discount < 0 || discount >= 100)
-            {
-                errorTB((TextBox)sender);
-                return;
-            }
-
-        }
-
-        private void correctTB(TextBox tb) => tb.Background = new SolidColorBrush(Color.FromRgb(229, 255, 204));
-        private void errorTB(TextBox tb) => tb.Background = new SolidColorBrush(Color.FromRgb(255, 204, 204));
-
-        #endregion
 
         private void SpaceNotAllowed(object sender, KeyEventArgs e)
         {

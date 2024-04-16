@@ -30,7 +30,7 @@ namespace Practice
                 .Select(s => s.LastName + " " + s.FirstName + " " + s.Patronymic)
                 .ToList();
 
-            courseComboBox.ItemsSource = model.Services
+            courseComboBox.ItemsSource = model.Services.OrderBy(s => s.ID)
                 .Select(s => s.Name_s)
                 .ToList();
         }
@@ -54,7 +54,7 @@ namespace Practice
                 Client = client,
                 ClientID = client.ID,
                 ServiceID = service.ID,
-                StartTime = calendarRegister.DisplayDate
+                StartTime = Convert.ToDateTime(calendarRegister.SelectedDate)
             };
             model.ClientServices.Add(clientService);
             model.SaveChanges();

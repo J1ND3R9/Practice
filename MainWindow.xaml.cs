@@ -24,7 +24,7 @@ namespace Practice
         public MainWindow()
         {
             InitializeComponent();
-            //services.ItemsSource = model.Services.ToList();
+            services.ItemsSource = model.Services.ToList();
             status.Tag = adminStatus;
         }
 

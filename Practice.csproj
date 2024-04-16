@@ -144,5 +144,11 @@
   <ItemGroup>
     <Folder Include="Windows\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="school_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="school_logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,27 @@
         ResizeMode="NoResize"
         Title="Курсовик" Height="500" Width="1000">
     <Window.Resources>
+        <Style TargetType="Button" x:Key="buttonStyleMain">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+                    Background="#04a0ff">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="TextBlock" x:Key="Price">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HasDiscount}" Value="True">
@@ -23,17 +44,52 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style TargetType="Button" x:Key="AdminButtons">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+                    Background="#04a0ff">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="Button" x:Key="logButton">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+                                Background="#04a0ff">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
@@ -52,6 +108,12 @@
         <Style TargetType="Button" x:Key="exButton">
             <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
                 <DataTrigger Binding="{Binding ElementName=status, Path=Tag}" Value="True">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
@@ -81,8 +143,8 @@
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
-            <Image Source="/65f71d5319d48acd34bb1d11_sadhamster.png" Width="50" Height="50" x:Name="status"/>
-            <TextBlock Text="Sad Hamster Program" VerticalAlignment="Center" FontSize="18"/>
+            <Image Source="/school_logo.png" Width="36" x:Name="status" Margin="10"/>
+            <TextBlock Text="Learn" VerticalAlignment="Center" FontSize="18"/>
         </StackPanel>
         <Button Content="Вход" HorizontalAlignment="Right" Width="80" Height="30" Margin="10" x:Name="login" Click="login_Click" Style="{DynamicResource logButton}"/>
         <Button Content="Выйти из аккаунта" HorizontalAlignment="Right" Width="120" Height="30" Margin="10" x:Name="exitFromAdmin" Click="exitFromAdmin_Click" Style="{DynamicResource exButton}"/>
@@ -116,7 +178,7 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Button Width="110" Height="25" Content="Записать клиента" x:Name="addClient" Click="addClient_Click" Style="{DynamicResource AdminButtons}"/>
                 <Button Width="25" Height="25" Content="+" x:Name="addButton" Margin="10,0,0,0" Click="addButton_Click" Style="{DynamicResource AdminButtons}"/>
-                <Button Width="25" Height="25" Content="R" Margin="10,0,0,0" x:Name="refreshButton" Click="refreshButton_Click"/>
+                <Button Width="25" Height="25" Content="R" Margin="10,0,0,0" x:Name="refreshButton" Click="refreshButton_Click" Style="{StaticResource buttonStyleMain}"/>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid>
@@ -133,12 +195,12 @@
                                             <Image Width="70" Height="70" Source="{Binding Image_path}"/>
                                         </Grid>
                                         <Grid Grid.Column="1" HorizontalAlignment="Left">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                <TextBlock Text="ID: " Style="{DynamicResource idText}" Margin="20,0,0,0"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <TextBlock Text="ID: " Style="{DynamicResource idText}"/>
                                                 <TextBlock Text="{Binding ID}" Style="{DynamicResource idText}"/>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{Binding Name_s}" FontSize="13" Width="670" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                                                <TextBlock Text="{Binding Name_s}" FontSize="13" Width="542" TextWrapping="Wrap" HorizontalAlignment="Left"/>
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBlock Text="{Binding Price, StringFormat={}{0:N}}" Margin="0,5,0,5" Style="{DynamicResource Price}"/>
                                                     <TextBlock Text="{Binding PriceDiscount, StringFormat={}{0:N}}" Margin="5,5,0,5" Style="{DynamicResource Discount}"/>

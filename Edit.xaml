@@ -7,27 +7,50 @@
         mc:Ignorable="d"
         
         Title="Редактирование курса" Height="400" Width="500">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="buttonStyleMain">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+                Background="#04a0ff">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid TextElement.FontFamily="Comic Sans MS">
         <StackPanel Width="290" HorizontalAlignment="Left" Margin="10,5,0,5">
             <TextBlock Text="Наименование"/>
-            <TextBox Margin="0,4,0,15" x:Name="ServiceName" LostFocus="ServiceName_LostFocus"/>
+            <TextBox Margin="0,4,0,15" x:Name="ServiceName"/>
             <TextBlock Text="Описание"/>
-            <TextBox Margin="0,4,0,15" Height="100" TextWrapping="Wrap" x:Name="ServiceDesc" LostFocus="ServiceDesc_LostFocus"/>
+            <TextBox Margin="0,4,0,15" Height="100" TextWrapping="Wrap" x:Name="ServiceDesc"/>
             <TextBlock Text="Время курса"/>
-            <TextBox Margin="0,4,0,15"  TextWrapping="Wrap" x:Name="ServiceTime" Width="100" HorizontalAlignment="Left" PreviewKeyDown="SpaceNotAllowed" PreviewTextInput="ServiceTime_PreviewTextInput" ToolTip="Введите в конце ч, м, или с для указания единицы времени" LostFocus="ServiceTime_LostFocus"/>
+            <TextBox Margin="0,4,0,15"  TextWrapping="Wrap" x:Name="ServiceTime" Width="100" HorizontalAlignment="Left" PreviewKeyDown="SpaceNotAllowed" PreviewTextInput="ServiceTime_PreviewTextInput" ToolTip="Введите в конце ч, м, или с для указания единицы времени"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Стоимость"/>
-                    <TextBox Width="100" PreviewTextInput="Numeric_PreviewTextInput" x:Name="priceInput" PreviewKeyDown="SpaceNotAllowed" LostFocus="priceInput_LostFocus"/>
+                    <TextBox Width="100" PreviewTextInput="Numeric_PreviewTextInput" x:Name="priceInput" PreviewKeyDown="SpaceNotAllowed"/>
                 </StackPanel>
                 <StackPanel Margin="90,0,0,0">
                     <TextBlock Text="Скидка (%)"/>
-                    <TextBox Width="100" x:Name="discountInput" PreviewTextInput="discountInput_PreviewTextInput" PreviewKeyDown="SpaceNotAllowed" LostFocus="discountInput_LostFocus"/>
+                    <TextBox Width="100" x:Name="discountInput" PreviewTextInput="discountInput_PreviewTextInput" PreviewKeyDown="SpaceNotAllowed"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,25,0,0" Height="25" HorizontalAlignment="Right">
-                <Button Content="Отмена" Width="65" Margin="10,0,0,0" Click="Button_Click"/>
-                <Button Margin="30,0,0,0" Width="140" x:Name="saveChanges" Click="saveChanges_Click"/>
+                <Button Content="Отмена" Width="65" Margin="10,0,0,0" Click="Button_Click" Style="{StaticResource buttonStyleMain}"/>
+                <Button Margin="30,0,0,0" Width="140" x:Name="saveChanges" Click="saveChanges_Click" Style="{StaticResource buttonStyleMain}"/>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Margin="0,0,5,30" VerticalAlignment="Center">
@@ -35,7 +58,7 @@
             <Border Width="170" HorizontalAlignment="Right">
                 <Image x:Name="changeImage" Stretch="Fill"/>
             </Border>
-            <Button Content="Обзор" Width="50" HorizontalAlignment="Right" x:Name="openFile" Click="openFile_Click"/>
+            <Button Content="Обзор" Width="50" HorizontalAlignment="Right" x:Name="openFile" Click="openFile_Click" Style="{StaticResource buttonStyleMain}"/>
         </StackPanel>
     </Grid>
 </Window>

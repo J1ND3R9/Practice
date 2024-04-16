@@ -5,7 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="ClientAdd" Height="350" Width="310">
+        Title="ClientAdd" Height="400" Width="310">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="buttonStyleMain">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="4"
+        Background="#04a0ff">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="FontWeight" Value="DemiBold"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid TextElement.FontFamily="Comic Sans MS" TextElement.FontSize="16">
         <StackPanel Margin="12">
             <TextBlock Text="Клиент:  " VerticalAlignment="Center"/>
@@ -17,6 +40,6 @@
             <ComboBox Width="150" Height="22" Margin="0,15,0,0" x:Name="courseComboBox"/>
             <Calendar Margin="0,15,13,0" HorizontalAlignment="Right" x:Name="calendarRegister"/>
         </StackPanel>
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Записать клиента" FontSize="15" Width="170" Margin="0,0,0,40" x:Name="clientAddButton" Click="clientAddButton_Click"/>
+        <Button VerticalAlignment="Bottom" Style="{StaticResource buttonStyleMain}" HorizontalAlignment="Center" Content="Записать клиента" FontSize="15" Width="170" Margin="0,0,0,40" x:Name="clientAddButton" Click="clientAddButton_Click"/>
     </Grid>
 </Window>
