@@ -169,7 +169,7 @@ namespace Practice
         private void refreshButton_Click(object sender, RoutedEventArgs e)
         {
             services.ItemsSource = null;
-            if (String.IsNullOrEmpty(findBox.Text) && haveFilters())
+            if (String.IsNullOrEmpty(findBox.Text) && !haveFilters())
             {
                 services.ItemsSource = model.Services.ToList();
             }
