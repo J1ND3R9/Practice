@@ -31,6 +31,7 @@
         </Style>
     </Window.Resources>
     <Grid TextElement.FontFamily="Comic Sans MS">
+        <TextBlock Visibility="Collapsed" x:Name="hiddenPath"/>
         <StackPanel Width="290" HorizontalAlignment="Left" Margin="10,5,0,5">
             <TextBlock Text="Наименование"/>
             <TextBox Margin="0,4,0,15" x:Name="ServiceName"/>

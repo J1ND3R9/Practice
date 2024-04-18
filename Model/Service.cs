@@ -5,6 +5,7 @@ namespace Practice.Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.IO;
 
     [Table("Service")]
     public partial class Service
@@ -29,6 +30,7 @@ namespace Practice.Model
         public string Image_path { get; set; }
 
         public bool HasDiscount => Discount > 0;
+        public string Image => Image_path.StartsWith(" ") ? Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), Image_path.Remove(0, 1)) : Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), Image_path);
         public bool HaveDesc => !String.IsNullOrEmpty(Descript);
         public int TimeInMin => Duration_in_sec / 60;
         public decimal? PriceDiscount => Price - (Price * Discount / 100);

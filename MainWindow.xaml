@@ -294,7 +294,7 @@
                                             <ColumnDefinition Width="4*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0" HorizontalAlignment="Center">
-                                            <Image Width="70" Height="70" Source="{Binding Image_path}"/>
+                                            <Image Width="70" Height="70" Source="{Binding Image}"/>
                                         </Grid>
                                         <Grid Grid.Column="1" HorizontalAlignment="Left">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">

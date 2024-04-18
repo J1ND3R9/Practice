@@ -4,6 +4,7 @@ using Practice.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -133,6 +134,11 @@ namespace Practice
                 messageErrorByID(7);
                 return;
             }
+            if (String.IsNullOrEmpty(hiddenPath.Text))
+            {
+                messageErrorByID(8);
+                return;
+            }
             editCourse();
         }
 
@@ -159,17 +165,27 @@ namespace Practice
                 service = new Service();
 
             service.Name_s = ServiceName.Text;
-            service.Descript = ServiceDesc.Text;
-            service.Price = Convert.ToDecimal(priceInput.Text);
-            service.Discount = Convert.ToByte(discountInput.Text);
-            service.Duration_in_sec = getTime();
-            service.Image_path = imagePathText.Text;
             var containsServiceName = model.Services.Where(s => s.Name_s == service.Name_s).ToList();
             if (containsServiceName.Any())
             {
                 messageErrorByID(-1);
                 return;
             }
+
+            service.Descript = ServiceDesc.Text;
+            service.Price = Convert.ToDecimal(priceInput.Text);
+            service.Discount = Convert.ToByte(discountInput.Text);
+            service.Duration_in_sec = getTime();
+            if (!hiddenPath.Text.Contains(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги школы")))
+            {
+                if (File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги школы", imagePathText.Text)))
+                {
+                    messageErrorByID(-2);
+                    return;
+                }
+                File.Copy(hiddenPath.Text, System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги школы", imagePathText.Text));
+            }
+            service.Image_path = "Услуги школы\\"+ imagePathText.Text;
             model.Services.AddOrUpdate(service);
             model.SaveChanges();
             lb.ItemsSource = model.Services.ToList();
@@ -180,6 +196,9 @@ namespace Practice
             string descError = "";
             switch (ID)
             {
+                case -2:
+                    descError = "Изображение с таким названием уже существует";
+                    break;
                 case -1:
                     descError = "Курс с таким наименованием уже существует";
                     ServiceName.Focus();
@@ -220,6 +239,9 @@ namespace Practice
                     descError = "Курс не может быть длиться более 4 часов";
                     ServiceTime.Focus();
                     break;
+                case 8:
+                    descError = "Изображение некорректно";
+                    break;
             }
             MessageBox.Show(descError, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -240,6 +262,7 @@ namespace Practice
             {
                 imagePathText.Text = openFileDialog.SafeFileName;
                 changeImage.Source = BitmapFrame.Create(new Uri(openFileDialog.FileName));
+                hiddenPath.Text = openFileDialog.FileName;
             }
         }
     }

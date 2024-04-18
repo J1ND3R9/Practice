@@ -1,6 +1,7 @@
 ﻿using Practice.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -15,12 +16,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace Practice
 {
     public partial class MainWindow : Window
     {
         Model1 model = new Model1();
         public bool adminStatus = false;
+        public static string Path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -126,11 +131,10 @@ namespace Practice
             switch (result)
             {
                 case MessageBoxResult.Yes:
-
                     model.Services.Remove(service);
                     model.SaveChanges();
                     services.ItemsSource = model.Services.ToList();
-                    return;
+                    break;
             }
         }
         private bool haveFilters() => (filterDiscount.SelectedIndex != 0 || filterDiscount.SelectedIndex != -1) && (defaultFilterComboBox.SelectedIndex != 0 || defaultFilterComboBox.SelectedIndex != -1);
