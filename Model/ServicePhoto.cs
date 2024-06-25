@@ -16,5 +16,7 @@ namespace Practice.Model
         [Required]
         [StringLength(1000)]
         public string PhotoPath { get; set; }
+
+        public virtual Service Service { get; set; }
     }
 }

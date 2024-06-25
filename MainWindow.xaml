@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Learn" Height="500" Width="1000">
+        Icon="/beauty_logo.ico"
+        Title="Бархатные брови" Height="500" Width="1000">
     <Window.Resources>
-        <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#04a0ff" />
-        <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#04a0ff" />
+        <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#ff4a6e" />
+        <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#ff4a6e" />
         <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#888" />
         <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
         <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
@@ -86,7 +87,7 @@
                                 <Grid Name="DropDown" SnapsToDevicePixels="True"
                     MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
                     MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
-                                    <Border Name="DropDownBorder" Background="#04a0ff" Margin="0, 1, 0, 0"
+                                    <Border Name="DropDownBorder" Background="#ff4a6e" Margin="0, 1, 0, 0"
                         CornerRadius="0" BorderThickness="1,1,1,1" 
                         BorderBrush="{StaticResource ComboBoxNormalBorderBrush}"/>
                                     <ScrollViewer Margin="4" SnapsToDevicePixels="True">
@@ -105,7 +106,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="4"
-                    Background="#04a0ff">
+                    Background="#ff4a6e">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </ControlTemplate>
@@ -142,7 +143,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="4"
-                    Background="#04a0ff">
+                    Background="#ff4a6e">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                         </Border>
 
@@ -168,7 +169,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="4"
-                                Background="#04a0ff">
+                                Background="#ff4a6e">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </ControlTemplate>
@@ -203,7 +204,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="4"
-         Background="#04a0ff">
+         Background="#ff4a6e">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </ControlTemplate>
@@ -225,13 +226,13 @@
         <Style TargetType="Grid" x:Key="colorChangeDiscount">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HasDiscount}" Value="True">
-                    <Setter Property="Background" Value="#D0FFBC"/>
+                    <Setter Property="Background" Value="#e1e4ff"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="desc">
-            <Setter Property="Text" Value="{Binding Descript}"/>
+            <Setter Property="Text" Value="{Binding Description}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding HaveDesc}" Value="False">
                     <Setter Property="Text" Value="Нет описания"/>
@@ -245,8 +246,8 @@
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
-            <Image Source="/school_logo.png" Width="36" x:Name="status" Margin="10"/>
-            <TextBlock Text="Learn" VerticalAlignment="Center" FontSize="18"/>
+            <Image Source="/beauty_logo.png" Width="36" x:Name="status" Margin="10"/>
+            <TextBlock Text="Бархатные брови" VerticalAlignment="Center" FontSize="18"/>
         </StackPanel>
         <Button Content="Вход" HorizontalAlignment="Right" Width="80" Height="30" Margin="10" x:Name="login" Click="login_Click" Style="{DynamicResource logButton}"/>
         <Button Content="Выйти из аккаунта" HorizontalAlignment="Right" Width="120" Height="30" Margin="10" x:Name="exitFromAdmin" Click="exitFromAdmin_Click" Style="{DynamicResource exButton}"/>
@@ -294,7 +295,7 @@
                                             <ColumnDefinition Width="4*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0" HorizontalAlignment="Center">
-                                            <Image Width="70" Height="70" Source="{Binding Image}"/>
+                                            <Image Width="120" Source="{Binding Image}"/>
                                         </Grid>
                                         <Grid Grid.Column="1" HorizontalAlignment="Left">
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
@@ -302,9 +303,9 @@
                                                 <TextBlock Text="{Binding ID}" Style="{DynamicResource idText}"/>
                                             </StackPanel>
                                             <StackPanel>
-                                                <TextBlock Text="{Binding Name_s}" FontSize="13" Width="542" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                                                <TextBlock Text="{Binding Title}" FontSize="13" Width="542" TextWrapping="Wrap" HorizontalAlignment="Left"/>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Price, StringFormat={}{0:N}}" Margin="0,5,0,5" Style="{DynamicResource Price}"/>
+                                                    <TextBlock Text="{Binding Cost, StringFormat={}{0:N}}" Margin="0,5,0,5" Style="{DynamicResource Price}"/>
                                                     <TextBlock Text="{Binding PriceDiscount, StringFormat={}{0:N}}" Margin="5,5,0,5" Style="{DynamicResource Discount}"/>
                                                     <TextBlock Text=" руб." Margin="0,5,0,5"/>
                                                 </StackPanel>

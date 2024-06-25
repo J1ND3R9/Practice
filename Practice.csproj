@@ -84,7 +84,6 @@
     <Compile Include="Model\ProductSale.cs" />
     <Compile Include="Model\Service.cs" />
     <Compile Include="Model\ServicePhoto.cs" />
-    <Compile Include="Model\sysdiagram.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
@@ -148,10 +147,8 @@
     <Folder Include="Windows\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="school_logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="school_logo.png" />
+    <Resource Include="beauty_logo.ico" />
+    <Resource Include="beauty_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

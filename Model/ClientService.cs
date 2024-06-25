@@ -12,8 +12,8 @@ namespace Practice.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ClientService()
         {
-            DocumentByServices = new HashSet<DocumentByService>();
-            ProductSales = new HashSet<ProductSale>();
+            DocumentByService = new HashSet<DocumentByService>();
+            ProductSale = new HashSet<ProductSale>();
         }
 
         public int ID { get; set; }
@@ -28,10 +28,12 @@ namespace Practice.Model
 
         public virtual Client Client { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DocumentByService> DocumentByServices { get; set; }
+        public virtual Service Service { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductSale> ProductSales { get; set; }
+        public virtual ICollection<DocumentByService> DocumentByService { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductSale> ProductSale { get; set; }
     }
 }

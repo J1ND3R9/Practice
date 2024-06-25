@@ -29,7 +29,7 @@ namespace Practice
         public MainWindow()
         {
             InitializeComponent();
-            services.ItemsSource = model.Services.ToList();
+            services.ItemsSource = model.Service.ToList();
             status.Tag = adminStatus;
         }
 
@@ -51,29 +51,29 @@ namespace Practice
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
             if (String.IsNullOrEmpty(findBox.Text))
-                services.ItemsSource = model.Services.Where(s => s.Discount >= discount.Item1 && s.Discount < discount.Item2).ToList();
+                services.ItemsSource = model.Service.Where(s => s.Discount >= discount.Item1 && s.Discount < discount.Item2).ToList();
             else
-                services.ItemsSource = model.Services.Where(s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Name_s.Contains(findBox.Text))).ToList();
+                services.ItemsSource = model.Service.Where(s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Title.Contains(findBox.Text))).ToList();
         }
         private void defaultFilter()
         {
             var discount = getTuple(filterDiscount.SelectedIndex);
             Func<Service, bool> whereFunc = getWhereFunc();
-            Func<Service, decimal?> order = s => s.Price - (s.Price * s.Discount / 100);
+            Func<Service, decimal?> order = s => s.Cost - (s.Cost * (int)s.Discount / 100);
 
             switch (defaultFilterComboBox.SelectedIndex)
             {
                 case 0:
-                    services.ItemsSource = model.Services.Where(whereFunc).ToList();
+                    services.ItemsSource = model.Service.Where(whereFunc).ToList();
                     return;
                 case 1:
-                    services.ItemsSource = model.Services.Where(whereFunc).OrderByDescending(order).ToList();
+                    services.ItemsSource = model.Service.Where(whereFunc).OrderByDescending(order).ToList();
                     return;
                 case 2:
-                    services.ItemsSource = model.Services.Where(whereFunc).OrderBy(order).ToList();
+                    services.ItemsSource = model.Service.Where(whereFunc).OrderBy(order).ToList();
                     return;
                 case 3:
-                    services.ItemsSource = model.Services.Where(whereFunc).OrderBy(s => s.Name_s).ToList();
+                    services.ItemsSource = model.Service.Where(whereFunc).OrderBy(s => s.Title).ToList();
                     return;
             }
 
@@ -85,7 +85,7 @@ namespace Practice
             if (String.IsNullOrEmpty(findBox.Text))
                 return s => s.Discount >= discount.Item1 && s.Discount < discount.Item2;
 
-            return s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Name_s.Contains(findBox.Text));
+            return s => (s.Discount >= discount.Item1 && s.Discount < discount.Item2) && (s.Title.Contains(findBox.Text));
         }
         private Tuple<int, int> getTuple(int i)
         {
@@ -113,27 +113,27 @@ namespace Practice
             Service service;
             try
             {
-                service = model.Services.First(s => s.ID == tag);
+                service = model.Service.First(s => s.ID == tag);
             }
             catch
             {
                 MessageBox.Show("Курс не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                services.ItemsSource = model.Services.ToList();
+                services.ItemsSource = model.Service.ToList();
                 return;
             }
-            List<ClientService> clientS = model.ClientServices.Where(c => c.ServiceID == service.ID).ToList();
+            List<ClientService> clientS = model.ClientService.Where(c => c.ServiceID == service.ID).ToList();
             if (clientS.Count > 0)
             {
                 MessageBox.Show("К данному курсу уже записан(ы) клиент(ы)", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBoxResult result = MessageBox.Show($"Вы уверены что хотите удалить курс под названием \"{service.Name_s}\"?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show($"Вы уверены что хотите удалить курс под названием \"{service.Title}\"?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    model.Services.Remove(service);
+                    model.Service.Remove(service);
                     model.SaveChanges();
-                    services.ItemsSource = model.Services.ToList();
+                    services.ItemsSource = model.Service.ToList();
                     break;
             }
         }
@@ -145,7 +145,7 @@ namespace Practice
                 filter_Selection(null, null);
                 return;
             }
-            services.ItemsSource = model.Services.Where(s => s.Name_s.Contains(findBox.Text)).ToList();
+            services.ItemsSource = model.Service.Where(s => s.Title.Contains(findBox.Text)).ToList();
         }
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
@@ -154,12 +154,12 @@ namespace Practice
             Service service;
             try
             {
-                service = model.Services.First(s => s.ID == id);
+                service = model.Service.First(s => s.ID == id);
             }
             catch
             {
                 MessageBox.Show("Курс не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                services.ItemsSource = model.Services.ToList();
+                services.ItemsSource = model.Service.ToList();
                 return;
             }
             Edit edit = new Edit(services, service);
@@ -175,7 +175,7 @@ namespace Practice
             services.ItemsSource = null;
             if (String.IsNullOrEmpty(findBox.Text) && !haveFilters())
             {
-                services.ItemsSource = model.Services.ToList();
+                services.ItemsSource = model.Service.ToList();
             }
             else
                 findBox_TextChanged(null, null);

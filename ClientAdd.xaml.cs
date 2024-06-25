@@ -26,12 +26,12 @@ namespace Practice
             InitializeComponent();
             calendarRegister.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Now.AddDays(-1)));
 
-            clientComboBox.ItemsSource = model.Clients.OrderBy(s => s.ID)
+            clientComboBox.ItemsSource = model.Client.OrderBy(s => s.ID)
                 .Select(s => s.LastName + " " + s.FirstName + " " + s.Patronymic)
                 .ToList();
 
-            courseComboBox.ItemsSource = model.Services.OrderBy(s => s.ID)
-                .Select(s => s.Name_s)
+            courseComboBox.ItemsSource = model.Service.OrderBy(s => s.ID)
+                .Select(s => s.Title)
                 .ToList();
         }
 
@@ -61,13 +61,13 @@ namespace Practice
                     return;
                 }
             }
-            Client client = model.Clients.First(s => s.ID == clientComboBox.SelectedIndex + 1);
+            Client client = model.Client.First(s => s.ID == clientComboBox.SelectedIndex + 1);
             if (haveSignedOnTime(client))
             {
                 MessageBox.Show("Клиент уже записан на курсы в этот промежуток времени", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            Service service = model.Services.First(s => s.Name_s == courseComboBox.SelectedItem.ToString());
+            Service service = model.Service.First(s => s.Title == courseComboBox.SelectedItem.ToString());
             int hours = Convert.ToInt32(timeTextBox.Text);
             int minutes = Convert.ToInt32(timeMinTextBox.Text);
             ClientService clientService = new ClientService()
@@ -77,7 +77,7 @@ namespace Practice
                 ServiceID = service.ID,
                 StartTime = Convert.ToDateTime(calendarRegister.SelectedDate).AddHours(hours).AddMinutes(minutes)
             };
-            model.ClientServices.Add(clientService);
+            model.ClientService.Add(clientService);
             model.SaveChanges();
             MessageBox.Show("Клиент записан на курс", "Успешная запись", MessageBoxButton.OK);
             this.Close();
@@ -88,15 +88,15 @@ namespace Practice
             ClientService cs;
             try
             {
-                cs = model.ClientServices.OrderByDescending(c => c.StartTime).First(c => client.ID == c.ClientID);
+                cs = model.ClientService.OrderByDescending(c => c.StartTime).First(c => client.ID == c.ClientID);
             }
             catch
             {
                 return false;
             }
-            Service service = model.Services.First(s => s.ID ==  cs.ServiceID);
+            Service service = model.Service.First(s => s.ID ==  cs.ServiceID);
             DateTime startTime = cs.StartTime;
-            DateTime endTime = startTime.AddSeconds(service.Duration_in_sec);
+            DateTime endTime = startTime.AddSeconds(service.DurationInSeconds);
             if (calendarRegister.SelectedDate == startTime.Date)
             {
                 int hours = Convert.ToInt32(timeTextBox.Text);
@@ -104,7 +104,7 @@ namespace Practice
                 DateTime selectedTime = Convert.ToDateTime(calendarRegister.SelectedDate).AddHours(hours).AddMinutes(minutes);
                 if (selectedTime >= startTime && selectedTime <= endTime)
                     return true;
-                selectedTime = selectedTime.AddSeconds(service.Duration_in_sec);
+                selectedTime = selectedTime.AddSeconds(service.DurationInSeconds);
                 if (selectedTime >= startTime && selectedTime <= endTime)
                     return true;
             }

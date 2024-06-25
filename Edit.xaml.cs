@@ -35,12 +35,12 @@ namespace Practice
             this.lb = lb;
             if (service != null)
             {
-                ServiceName.Text = service.Name_s;
-                ServiceDesc.Text = service.Descript;
-                priceInput.Text = service.Price.ToString();
+                ServiceName.Text = service.Title;
+                ServiceDesc.Text = service.Description;
+                priceInput.Text = service.Cost.ToString();
                 discountInput.Text = service.Discount.ToString();
-                ServiceTime.Text = service.Duration_in_sec.ToString() + "с";
-                imagePathText.Text = service.Image_path;
+                ServiceTime.Text = service.DurationInSeconds.ToString() + "с";
+                imagePathText.Text = service.MainImagePath;
                 saveChanges.Content = "Сохранить изменения";
                 return;
             }
@@ -164,31 +164,31 @@ namespace Practice
             if (service == null)
                 service = new Service();
 
-            service.Name_s = ServiceName.Text;
-            var containsServiceName = model.Services.Where(s => s.Name_s == service.Name_s).ToList();
+            service.Title = ServiceName.Text;
+            var containsServiceName = model.Service.Where(s => s.Title == service.Title).ToList();
             if (containsServiceName.Any())
             {
                 messageErrorByID(-1);
                 return;
             }
 
-            service.Descript = ServiceDesc.Text;
-            service.Price = Convert.ToDecimal(priceInput.Text);
+            service.Description = ServiceDesc.Text;
+            service.Cost = Convert.ToDecimal(priceInput.Text);
             service.Discount = Convert.ToByte(discountInput.Text);
-            service.Duration_in_sec = getTime();
-            if (!hiddenPath.Text.Contains(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги школы")))
+            service.DurationInSeconds = getTime();
+            if (!hiddenPath.Text.Contains(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги салона красоты")))
             {
-                if (File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги школы", imagePathText.Text)))
+                if (File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги салона красоты", imagePathText.Text)))
                 {
                     messageErrorByID(-2);
                     return;
                 }
-                File.Copy(hiddenPath.Text, System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги школы", imagePathText.Text));
+                File.Copy(hiddenPath.Text, System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MainWindow.Path), "Услуги салона красоты", imagePathText.Text));
             }
-            service.Image_path = "Услуги школы\\"+ imagePathText.Text;
-            model.Services.AddOrUpdate(service);
+            service.MainImagePath = "Услуги салона красоты\\" + imagePathText.Text;
+            model.Service.AddOrUpdate(service);
             model.SaveChanges();
-            lb.ItemsSource = model.Services.ToList();
+            lb.ItemsSource = model.Service.ToList();
             this.Close();
         }
         private void messageErrorByID(int ID)

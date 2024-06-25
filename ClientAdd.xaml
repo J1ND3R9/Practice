@@ -8,8 +8,8 @@
         ResizeMode="NoResize"
         Title="Запись клиента" Height="400" Width="310">
     <Window.Resources>
-        <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#04a0ff" />
-        <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#04a0ff" />
+        <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#ff4a6e" />
+        <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#ff4a6e" />
         <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#888" />
         <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#eee" />
         <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#888" />
@@ -86,7 +86,7 @@
                                 <Grid Name="DropDown" SnapsToDevicePixels="True"
             MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
             MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
-                                    <Border Name="DropDownBorder" Background="#04a0ff" Margin="0, 1, 0, 0"
+                                    <Border Name="DropDownBorder" Background="#ff4a6e" Margin="0, 1, 0, 0"
                 CornerRadius="0" BorderThickness="1,1,1,1" 
                 BorderBrush="{StaticResource ComboBoxNormalBorderBrush}"/>
                                     <ScrollViewer Margin="4" SnapsToDevicePixels="True">
@@ -105,7 +105,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="4"
-        Background="#04a0ff">
+        Background="#ff4a6e">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </ControlTemplate>
